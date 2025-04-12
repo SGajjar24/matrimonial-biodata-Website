@@ -2,15 +2,13 @@
 
 import React from 'react';
 import { useBiodataContext } from '../context/BiodataContext';
-import InputField from './InputField';
-import Button from './Button';
 
 export default function PersonalDetailsForm() {
-  const { formData, updateFormData, isFormValid } = useBiodataContext();
+  const { formData, updateFormData } = useBiodataContext();
   
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
+  const handleChange = (e) => {
     const { name, value } = e.target;
-    updateFormData(name as keyof typeof formData, value);
+    updateFormData(name, value);
   };
   
   const religionOptions = [
@@ -29,121 +27,88 @@ export default function PersonalDetailsForm() {
     { value: 'other', label: 'Other' },
   ];
   
-  const manglikOptions = [
-    { value: 'yes', label: 'Yes' },
-    { value: 'no', label: 'No' },
-    { value: 'dont-know', label: 'Don\'t Know' },
-  ];
-  
-  const dietOptions = [
-    { value: 'veg', label: 'Vegetarian' },
-    { value: 'non-veg', label: 'Non-Vegetarian' },
-    { value: 'jain', label: 'Jain' },
-  ];
-  
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleFileChange = (e) => {
     const file = e.target.files?.[0];
     if (file) {
       const reader = new FileReader();
       reader.onloadend = () => {
-        updateFormData('photo', reader.result as string);
+        updateFormData('photo', reader.result);
       };
       reader.readAsDataURL(file);
     }
   };
   
   return (
-    <div>
+    <div className="form-section">
       <h2 className="section-title">Personal Details</h2>
       <p className="text-gray-600 mb-6">Fill in your basic personal information</p>
       
       <div className="space-y-4">
-        <InputField
-          label="Full Name"
-          name="fullName"
-          value={formData.fullName}
-          onChange={handleChange}
-          placeholder="Enter your full name"
-          required
-        />
-        
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <InputField
-            label="Age"
-            type="number"
-            name="age"
-            value={formData.age}
+        <div className="form-group">
+          <label className="form-label">Full Name</label>
+          <input
+            type="text"
+            name="fullName"
+            value={formData.fullName}
             onChange={handleChange}
-            placeholder="Enter your age"
-            required
-          />
-          
-          <InputField
-            label="Gender"
-            type="select"
-            name="gender"
-            value={formData.gender}
-            onChange={handleChange}
-            options={genderOptions}
+            placeholder="Enter your full name"
+            className="input-field"
             required
           />
         </div>
         
-        <div>
-          <InputField
-            label="Religion/Caste"
-            type="select"
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="form-group">
+            <label className="form-label">Age</label>
+            <input
+              type="number"
+              name="age"
+              value={formData.age}
+              onChange={handleChange}
+              placeholder="Enter your age"
+              className="input-field"
+              required
+            />
+          </div>
+          
+          <div className="form-group">
+            <label className="form-label">Gender</label>
+            <select
+              name="gender"
+              value={formData.gender}
+              onChange={handleChange}
+              className="input-field"
+              required
+            >
+              <option value="">Select gender</option>
+              {genderOptions.map(option => (
+                <option key={option.value} value={option.value}>
+                  {option.label}
+                </option>
+              ))}
+            </select>
+          </div>
+        </div>
+        
+        <div className="form-group">
+          <label className="form-label">Religion/Caste</label>
+          <select
             name="religion"
             value={formData.religion}
             onChange={handleChange}
-            options={religionOptions}
-            tooltip="Optional field, can be skipped"
-          />
+            className="input-field"
+          >
+            <option value="">Select religion</option>
+            {religionOptions.map(option => (
+              <option key={option.value} value={option.value}>
+                {option.label}
+              </option>
+            ))}
+          </select>
         </div>
         
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <InputField
-            label="Height"
-            name="height"
-            value={formData.height}
-            onChange={handleChange}
-            placeholder="e.g., 5'8\""
-          />
-          
-          <InputField
-            label="Weight"
-            name="weight"
-            value={formData.weight}
-            onChange={handleChange}
-            placeholder="e.g., 65 kg"
-          />
-        </div>
-        
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <InputField
-            label="Manglik Status"
-            type="select"
-            name="manglikStatus"
-            value={formData.manglikStatus}
-            onChange={handleChange}
-            options={manglikOptions}
-            tooltip="Astrological consideration in some communities"
-          />
-          
-          <InputField
-            label="Diet"
-            type="select"
-            name="diet"
-            value={formData.diet}
-            onChange={handleChange}
-            options={dietOptions}
-          />
-        </div>
-        
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">
-            Profile Photo
-          </label>
+        <div className="form-group">
+          <label className="form-label">Profile Photo</label>
           <div className="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md">
             <div className="space-y-1 text-center">
               {formData.photo ? (
