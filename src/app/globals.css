@@ -1,0 +1,142 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --primary: #FF4C4C;
+  --secondary: #2E4053;
+  --background: #FFFFFF;
+  --text: #333333;
+  --accent: #FFD700;
+}
+
+body {
+  font-family: 'Roboto', sans-serif;
+  color: var(--text);
+  background-color: var(--background);
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.btn-primary {
+  @apply bg-[#FF4C4C] text-white font-medium py-2 px-6 rounded-md hover:bg-[#E43C3C] transition-all;
+}
+
+.btn-secondary {
+  @apply bg-[#2E4053] text-white font-medium py-2 px-6 rounded-md hover:bg-[#1E3043] transition-all;
+}
+
+.btn-outline {
+  @apply border border-[#FF4C4C] text-[#FF4C4C] font-medium py-2 px-6 rounded-md hover:bg-[#FF4C4C] hover:text-white transition-all;
+}
+
+.input-field {
+  @apply w-full border border-gray-300 rounded-md py-2 px-4 focus:outline-none focus:ring-2 focus:ring-[#FF4C4C] focus:border-transparent;
+}
+
+.card {
+  @apply bg-white rounded-lg shadow-md p-6;
+}
+
+.section-title {
+  @apply text-2xl font-bold text-[#2E4053] mb-4;
+}
+
+.tooltip {
+  @apply relative inline-block;
+}
+
+.tooltip .tooltip-text {
+  @apply invisible absolute z-10 bg-[#2E4053] text-white text-sm rounded-md p-2 -mt-16 ml-2;
+  width: 200px;
+}
+
+.tooltip:hover .tooltip-text {
+  @apply visible;
+}
+
+.step-container {
+  @apply flex flex-col md:flex-row gap-6 my-8;
+}
+
+.step-sidebar {
+  @apply w-full md:w-1/4 bg-gray-50 p-4 rounded-lg;
+}
+
+.step-content {
+  @apply w-full md:w-3/4 bg-white p-6 rounded-lg shadow-md;
+}
+
+.step-nav {
+  @apply flex justify-between mt-6;
+}
+
+.template-card {
+  @apply border rounded-lg overflow-hidden cursor-pointer transition-all hover:shadow-lg;
+}
+
+.template-card.active {
+  @apply border-[#FF4C4C] ring-2 ring-[#FF4C4C];
+}
+
+.template-preview {
+  @apply h-48 bg-gray-100 flex items-center justify-center;
+}
+
+.template-info {
+  @apply p-4;
+}
+
+.hobby-icon {
+  @apply inline-flex items-center justify-center w-12 h-12 rounded-full bg-gray-100 text-[#2E4053] cursor-pointer hover:bg-[#FF4C4C] hover:text-white transition-all;
+}
+
+.hobby-icon.selected {
+  @apply bg-[#FF4C4C] text-white;
+}
+
+.progress-bar {
+  @apply w-full bg-gray-200 rounded-full h-2.5 mb-4;
+}
+
+.progress-bar-fill {
+  @apply bg-[#FF4C4C] h-2.5 rounded-full;
+}
+
+.auto-save-indicator {
+  @apply text-sm text-gray-500 italic;
+}
+
+.error-alert {
+  @apply bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative;
+}
+
+.privacy-warning {
+  @apply bg-yellow-100 border border-yellow-400 text-yellow-700 px-4 py-3 rounded relative;
+}
+
+.help-section {
+  @apply bg-gray-50 p-6 rounded-lg mt-8;
+}
+
+.example-biodata {
+  @apply border border-dashed border-gray-300 p-4 rounded-lg;
+}
+
+.video-tutorial {
+  @apply w-full aspect-video bg-gray-200 rounded-lg;
+}
+
+@media (max-width: 768px) {
+  .step-container {
+    @apply flex-col;
+  }
+  
+  .step-sidebar, .step-content {
+    @apply w-full;
+  }
+}
